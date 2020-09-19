@@ -11,9 +11,17 @@ class Common(commands.Cog):
         print(er)
         await ctx.send("Please check with #help usage of this command or contact your admin")
 
-    @commands.command(name="yomomma",help="Tease another member with yo mama joke")
+    @commands.command(name="roast",help="Tease another member with yo mama joke")
     async def yomomma(self,ctx,member:discord.Member=None):
         insult=await get_momma_jokes()
+        if member is not None:  
+            mem=str(member.name)
+        else:
+            mem=str(ctx.message.author.name)
+
+        insult=insult.replace("Yo mama's",mem)
+        insult=insult.replace("Yo mama",mem)
+        insult=insult.replace("she","he")
         await ctx.send(insult)
 
    
