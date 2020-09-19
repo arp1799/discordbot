@@ -5,11 +5,12 @@ import discord
 import random
 from dotenv import load_dotenv
 from discord.ext import commands
-
+from settings import *
+print(DTOKEN)
 load_dotenv()
 
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
+TOKEN = os.getenv('DISCORD_TOKEN')#to be deleted once nodemon work
+GUILD = os.getenv('DISCORD_GUILD')#to be deleted once nodemon work
 
 bot=commands.Bot(command_prefix='#')
 
@@ -24,8 +25,8 @@ async def exit(context):
     await context.send(response)
     await bot.logout()
 
-
-bot.run(TOKEN)
+# print(DTOKEN)
+bot.run(TOKEN)#TOKEN -> DTOKEN
 
 
 #------------------GUILD MEMBERS LIST COMMAND------------------------------------
