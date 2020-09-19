@@ -24,6 +24,7 @@ class Gamble(commands.Cog):
     
     @commands.command(name="group",help="Divide args(members) into arg2(no of groups) groups")
     async def group(self,ctx,*args):
+        print(ctx.message.content)
         x=int(args[0])
         y=len(args)-1
         len_of_each=int(y/x)
