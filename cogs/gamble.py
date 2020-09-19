@@ -1,3 +1,5 @@
+#involves functions revolving around random function
+
 from discord.ext import commands
 import random
 
