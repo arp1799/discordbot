@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from utils import get_momma_jokes
 
-class Common(commands.Cog):
+class Jokes(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
         
@@ -26,4 +26,4 @@ class Common(commands.Cog):
 
    
 def setup(bot):
-    bot.add_cog(Common(bot))
+    bot.add_cog(Jokes(bot))
