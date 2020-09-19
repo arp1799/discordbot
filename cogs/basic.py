@@ -4,7 +4,11 @@ from utils import text_to_owo
 class Common(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
-    
+        
+    @commands.Cog.listener()
+    async def on_command_error(self,ctx,er):
+        print(er)
+        await ctx.send("Please check with #help usage of this command or contact your admin")
 
     @commands.command(name="owo",help="Converts text to owo text")
     async def owo(self,ctx):

@@ -8,6 +8,11 @@ class Test(commands.Cog):#Bot is passed as parameter as commands.Cogs
     def __init__(self,bot):
         self.bot=bot
 
+    @commands.Cog.listener()
+    async def on_command_error(self,ctx,er):
+        print(er)
+        await ctx.send("Please check with #help usage of this command or contact your admin")
+
     @commands.command(name='rimage',help='input image link to share with other members')
     async def webimage(self,context,my_url):
         async with aiohttp.ClientSession() as session:

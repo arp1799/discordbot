@@ -7,6 +7,11 @@ class Gamble(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     
+    @commands.Cog.listener()
+    async def on_command_error(self,ctx,er):
+        print(er)
+        await ctx.send("Please check with #help usage of this command or contact your admin")
+    
     @commands.command(name="roll",help="Gives random integer between agr1 and agr2")
     async def random(self,ctx,*args):
         n=random.randrange(int(args[0]),int(args[1]))
