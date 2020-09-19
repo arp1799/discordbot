@@ -26,29 +26,33 @@ class Gamble(commands.Cog):
     async def coin(self,ctx,*args):
         n=random.randint(0,1)
         await ctx.send("Heads" if n==1 else "Tails")
-    
+
     @commands.command(name="group",help="Divide args(members) into arg2(no of groups) groups")
-    async def group(self,ctx,*args):
-        print(ctx.message.content)
-        x=int(args[0])
-        y=len(args)-1
-        len_of_each=int(y/x)
-        if y%x!=0:
-            len_of_each+=1
-        print(len_of_each)
-        n = [i for i in range(1,len(args))]
+    async def group(self,ctx):
+        s = ctx.message.content
+        print(s)
+        s = s.strip('#group ')
+        n = int(s[0])
+        s = s[1:]
+        s = s.split()
+        random.shuffle(s)
+        
+        groups = [[] for i in range(n)]
+
+        for i in range(len(s)):
+            groups[i%n].append(s[i])
+        
+        random.shuffle(groups)
+        
         response = ''
-        print(n)
-        for i in range(x):
-            for j in range(len_of_each):
-                if(len(n)==0):
-                    break
-                x = random.randint(0,len(n)-1)
-                response+=args[n[x]]+','
-                del n[x]
-            response+='\n'
+        for i in groups:
+            for j in i:
+                response += str(j)+" "
+            response += '\n'
         print(response)
         await ctx.send(response)
+
+
 
 
 def setup(bot):
