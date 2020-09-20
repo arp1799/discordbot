@@ -22,6 +22,8 @@ class Jokes(commands.Cog):
         insult=insult.replace("Yo mama's",mem)
         insult=insult.replace("Yo mama",mem)
         insult=insult.replace("she","he")
+        insult=insult.replace("her","his")
+        insult=insult.replace("her's","his")
         await ctx.send(insult)
 
    
