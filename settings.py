@@ -1,6 +1,6 @@
 import os
 
-DEBUG=os.getenv("DEBUG",True)
+DEBUG=os.getenv("DEBUG",False)
 
 if DEBUG:
     print("We Are In Debug")
@@ -9,8 +9,11 @@ if DEBUG:
     env_path=Path(".")/".env.debug"
     load_dotenv(dotenv_path=env_path)
     from settings_files.development import *
-    print(DTOKEN)
+    # print(DTOKEN)
 else:
     print("We are in Production")
     from settings_files.production import *
-    print(DTOKEN)
+    # print(DTOKEN)
+
+
+    

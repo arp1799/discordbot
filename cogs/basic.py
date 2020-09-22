@@ -7,8 +7,10 @@ class Common(commands.Cog):
         
     @commands.Cog.listener()
     async def on_command_error(self,ctx,er):
-        print(er)
-        await ctx.send("Please check with #help usage of this command or contact your admin")
+        print(er)       
+        if self.bot:
+            await ctx.send("Please check with #help usage of this command or contact your admin")
+        return
 
     @commands.command(name="owo",help="Converts text to owo text")
     async def owo(self,ctx):

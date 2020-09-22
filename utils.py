@@ -1,3 +1,5 @@
+#################### yo-mama-jokes ####################
+
 import random
 import json
 import os
@@ -14,8 +16,7 @@ async def get_momma_jokes():
 
 
 
-
-
+##################### text-to-owo #####################
 
 
 vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
