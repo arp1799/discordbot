@@ -7,7 +7,6 @@ class Images(commands.Cog):#Bot is passed as parameter as commands.Cogs
     def __init__(self,bot):
         self.bot=bot
 
-
     @commands.command(name='cat',help='Output random cat image')
     async def cat(self,context):
         async with context.channel.typing():

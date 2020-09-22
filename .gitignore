@@ -3,3 +3,4 @@ chlimtjaio.txt
 discordbot
 *.pub
 __pycache__
+.env.debug
