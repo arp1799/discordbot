@@ -1,10 +1,22 @@
-#################### yo-mama-jokes ####################
+
 
 import random
 import json
 import os
 
 from settings import *
+
+
+async def dm_user(member,message):
+    if member is not None:
+        channel=member.dm_channel
+        if channel is None:
+            channel=await member.create_dm()
+        await channel.send(message)
+
+
+############################ get momma jokes######################
+
 
 async def get_momma_jokes():
     # print(os.path.join(DATA_DIR,"jokes.json"))

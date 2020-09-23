@@ -2,6 +2,8 @@ from discord.ext import commands
 import datetime
 import discord
 
+from utils import dm_user
+
 class Admin(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
@@ -12,6 +14,8 @@ class Admin(commands.Cog):
     @commands.has_permissions(kick_members=True)
     async def kick(self,ctx,member:discord.Member=None,reason:str="No reason specified"):
         if member is not None:
+            reason+="\n Kicked from "+ctx.guild.name
+            await dm_user(member,reason)
             await ctx.guild.kick(member,reason=reason)
             await ctx.send("User kicked from guild")
         else:
@@ -23,6 +27,8 @@ class Admin(commands.Cog):
     @commands.has_permissions(ban_members=True)
     async def ban(self,ctx,member:discord.Member=None,reason:str="No reason specified"):
         if member is not None:
+            reason+="\nBanned from "+ctx.guild.name
+            await dm_user(member,reason)
             await ctx.guild.ban(member,reason=reason)
             await ctx.send("User banned from guild")
         else:

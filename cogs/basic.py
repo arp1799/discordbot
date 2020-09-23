@@ -22,6 +22,7 @@ class Common(commands.Cog):
         link=await ctx.channel.create_invite(max_age=1)
         await ctx.send(link)
 
+
 def setup(bot):
     bot.add_cog(Common(bot))
 
