@@ -6,6 +6,44 @@ class Admin(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
 
+    @commands.command(name="kick",help="Kick user from guild along with reason")
+    @commands.is_owner()
+    @commands.guild_only()
+    @commands.has_permissions(kick_members=True)
+    async def kick(self,ctx,member:discord.Member=None,reason:str="No reason specified"):
+        if member is not None:
+            await ctx.guild.kick(member,reason=reason)
+            await ctx.send("User kicked from guild")
+        else:
+            await ctx.send("Specify member to kick along with reason")
+    
+    @commands.command(name="ban",help="Ban user from guild along with reason")
+    @commands.is_owner()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    async def ban(self,ctx,member:discord.Member=None,reason:str="No reason specified"):
+        if member is not None:
+            await ctx.guild.ban(member,reason=reason)
+            await ctx.send("User banned from guild")
+        else:
+            await ctx.send("Specify member to ban along with reason")
+    
+    @commands.command(name="unban",help="Unban user from guild along with reason")
+    @commands.is_owner()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    async def unban(self,ctx,member:str="",reason:str="No reason specified"):
+        if member == "":
+            await ctx.send("Specify member to unban along with reason")
+            return
+        ban_list=await ctx.guild.bans()
+        for mem in ban_list:
+            if mem.user.name == member:
+                await ctx.guild.unban(mem.user,reason=reason)
+                await ctx.send("User unbanned")
+                return
+        await ctx.send("User not found in ban list")
+
     @commands.command(name="unload",help="Unload any section of commands")
     @commands.is_owner()
     async def unload(self,ctx,cog:str):
@@ -13,6 +51,7 @@ class Admin(commands.Cog):
             s="cogs."+cog
             self.bot.unload_extension(s)
         except Exception as e:
+            print(e)
             await ctx.send("Could not unload Cog...")
             return
         await ctx.send("Cog Unloaded")
@@ -24,6 +63,7 @@ class Admin(commands.Cog):
             s="cogs."+cog
             self.bot.load_extension(s)
         except Exception as e:
+            print(e)
             await ctx.send("Could not load Cog...")
             return 
         await ctx.send("Cog Loaded")
@@ -36,18 +76,18 @@ class Admin(commands.Cog):
             self.bot.unload_extension(s)
             self.bot.load_extension(s)
         except Exception as e:
+            print(e)
             await ctx.send("Could not reload Cog...")
             return 
         await ctx.send("Cog Reloaded")
 
     @commands.command(name="status",help="Status of server")
-    @commands.is_owner()
     async def stats(self,ctx):
         guild=ctx.guild
         voice_chnls=len(guild.voice_channels)
         text_chnls=len(guild.text_channels)
         members=guild.member_count
-        members_list = await guild.fetch_members(limit=150).flatten()
+        #members_list = await guild.fetch_members(limit=150).flatten()
         embed=discord.Embed(description="Server Status",colour=discord.Colour.dark_purple())
         embed.set_author(name=self.bot.user.name)
         embed.set_thumbnail(url="https://www.internetandtechnologylaw.com/files/2019/06/iStock-872962368-chat-bots.jpg")
@@ -59,12 +99,7 @@ class Admin(commands.Cog):
         embed.set_footer(text=datetime.datetime.now())
         await ctx.send(embed=embed)
     
-    # test-command
-    @commands.command(name="dd",help="Converts text to owo text")
-    @commands.is_owner()
-    async def osd(self,ctx):
-        text="text_to_owo(ctx.message.content)"
-        await ctx.send(text)
+    
 
 def setup(bot):
     bot.add_cog(Admin(bot))
